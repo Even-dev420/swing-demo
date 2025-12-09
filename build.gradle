@@ -1,15 +1,40 @@
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'edu.sc.seis.launch4j' version '4.0.0'
+}
 
-// In this section you declare where to find the dependencies of your project
+group = 'com.example'
+version = '1.0.0'
+
 repositories {
-    jcenter()
     mavenCentral()
 }
 
-// In this section you declare the dependencies for your production and test code
 dependencies {
-    implementation 'org.slf4j:slf4j-api:1.7.7'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    testImplementation 'junit:junit:4.13.2'
+}
 
-    testImplementation 'junit:junit:4.11'
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'SwingDemo'
+        )
+    }
+}
+
+launch4j {
+    mainClassName = 'SwingDemo'
+    icon = "${projectDir}/android.png"
+}
+
+tasks.register('buildAll') {
+    dependsOn 'build', 'createExe'
+    group = 'build'
+    description = 'Сборка проекта и создание .exe файла'
 }
