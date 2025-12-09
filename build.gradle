@@ -30,7 +30,6 @@ jar {
 
 launch4j {
     mainClassName = 'SwingDemo'
-    icon = "${projectDir}/android.png"
 }
 
 tasks.register('buildAll') {
